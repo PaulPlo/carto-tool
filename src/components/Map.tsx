@@ -7,7 +7,7 @@ const Map = ({ data }) => {
     const mapRef = useRef();
     
     const markerIcon = L.icon({
-        iconUrl: '/public/map-pin.svg',
+        iconUrl: '/map-pin.svg',
         iconSize: [20, 30],
         iconAnchor: [10, 15]
     })
