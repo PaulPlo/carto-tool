@@ -1,19 +1,16 @@
 ---
-
+import config from '../config.js'
 ---
 
 <footer>
-    <p>footer</p>
+    <p>Datack carto template</p>
 </footer>
 
 <style>
     footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 10px 20px;
+        padding: 10px var(--gridMargin);
         z-index: 1000;
-        background-color: var(--color-secondary);
+        background-color: var(--colorSecondary);
+        color: var(--colorWhite);
     }
 </style>

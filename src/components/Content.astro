@@ -1,31 +1,53 @@
 ---
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+dayjs.extend(customParseFormat)
+
 import Map from './Map.tsx'
+import LastArticles from './LastArticles.astro'
 
-const response = await fetch('https://opensheet.elk.sh/1FdnFQvfoR_LbfJRt7dHK2DvtMVgSVMFA8S1mvzUIJWw/1');
-const data = await response.json();
+// const response = await fetch('https://opensheet.elk.sh/1FdnFQvfoR_LbfJRt7dHK2DvtMVgSVMFA8S1mvzUIJWw/1');
+// const data = await response.json();
 
-const formatedData = data
-    .filter((item: any) => item['Latitude'] && item['Latitude'].length)
-    .map((item: any) => {
+interface dataItem {
+    latlng: {lat: number, lng: number},
+    date: Date | undefined,
+    name: string
+}
+
+const data = [
+    {
+        position: '46.659086478659994, -1.447104433459426',
+        date: '30/04/2024'
+    },
+    {
+        position: '48.55019517832512, 2.6562745756425064',
+        date: '29/04/2024'
+    },
+]
+
+const formatedData: dataItem[] = data
+    .filter((item) => item.position && item.position.length)
+    .map((item, index: number) => {
         return {
             latlng: {
-                lat: parseFloat(item['Latitude']?.split(',')[0]),
-                lng: parseFloat(item['Latitude']?.split(',')[1]),
-            },  
-            date: item['Date'],
-            ville: item['Ville'],
-            type: item['Type rencontres'],
-            lien: item['Liens externes'],
+                lat: parseFloat(item.position.split(',')[0]),
+                lng: parseFloat(item.position.split(',')[1]),
+            },
+            date: item.date ? dayjs(item.date, 'DD/MM/YYYY').toDate() : undefined,
+            name: `Marker ${index + 1}`,
         }
     })
 ---
 
 <section class='container'>
     <Map client:only="react" data={formatedData} />
+    <LastArticles data={formatedData.slice(0,5)} />
 </section>
 
 <style>
     .container {
-        background-color: red;
+        position: relative;
+        flex: 1;
     }
 </style>

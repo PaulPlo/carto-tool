@@ -2,7 +2,9 @@
 ---
 
 <header>
-    <p>Header</p>
+    <a href="/">
+        <img class='logo' src='/logo.png'>
+    </a>
 </header>
 
 <style>
@@ -11,8 +13,11 @@
         top: 0;
         left: 0;
         right: 0;
-        padding: 10px 20px;
+        padding: 10px var(--gridMargin);
         z-index: 1000;
-        background-color: var(--color-primary);
+    }
+
+    .logo {
+        width: 130px;
     }
 </style>
